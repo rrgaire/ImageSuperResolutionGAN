@@ -16,6 +16,7 @@ from tensorflow_serving.apis import prediction_service_pb2_grpc
 
 
 log = logging.getLogger(__name__)
+save_dir = os.path.join(os.path.dirname(__name__), 'Output_Images')
 
 def __get_tf_server_connection_params__():
     
@@ -24,21 +25,23 @@ def __get_tf_server_connection_params__():
 
     return server_name, server_port
 
-def __create_prediction_request__(image):
+def __create_prediction_request__(image_dict):
     
     # create predict request
     request = predict_pb2.PredictRequest()
-
+    
+    image = image_dict['image']
+    image_name = image_dict['image_name']
     image = np.array(image, np.float32)
     image = np.expand_dims(image, 0)
 
     # Call ISRGAN model to make prediction on the image
-    request.model_spec.name = settings.GAN_MODEL_NAME
-    request.model_spec.signature_name = settings.GAN_MODEL_SIGNATURE_NAME
-    request.inputs[settings.GAN_MODEL_INPUTS_KEY].CopyFrom(
+    request.model_spec.name = settings.ISRGAN_MODEL_NAME
+    request.model_spec.signature_name = settings.ISRGAN_MODEL_SIGNATURE_NAME
+    request.inputs[settings.ISRGAN_MODEL_INPUTS_KEY].CopyFrom(
         tf.make_tensor_proto(image))
 
-    return request
+    return request, image_name
 
 def __open_tf_server_channel__(server_name, server_port):
     
@@ -50,22 +53,22 @@ def __open_tf_server_channel__(server_name, server_port):
 	
     return stub
 
-def __make_prediction_and_prepare_results__(stub, request):
+def __make_prediction_and_prepare_results__(stub, request, image_name):
     
     result = stub.Predict(request, 60.0).outputs['lambda_87'] # 60 secs timeout
     result_arr = tf.make_ndarray(result)
     result_arr = result_arr.reshape(result_arr.shape[1:])
         
     out_img = Image.fromarray(np.uint8(result_arr), 'RGB')
-    out_img.save('my3.jpg')
-    print('Success')
+    out_img.save(os.path.join(save_dir, image_name))
+   
     
     
 
     return out_img
 
-def make_prediction(image):
-    
+def make_prediction(image_dict):
+
     # get TensorFlow server connection parameters
     server_name, server_port = __get_tf_server_connection_params__()
     log.info('Connecting to TensorFlow server %s:%s', server_name, server_port)
@@ -74,7 +77,7 @@ def make_prediction(image):
     stub = __open_tf_server_channel__(server_name, server_port)
 
     # create predict request
-    request = __create_prediction_request__(image)
+    request, image_name = __create_prediction_request__(image_dict)
 
     # make prediction
-    return __make_prediction_and_prepare_results__(stub, request)
+    return __make_prediction_and_prepare_results__(stub, request, image_name)

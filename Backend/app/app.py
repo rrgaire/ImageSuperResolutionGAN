@@ -1,6 +1,6 @@
 import logging.config
 
-
+import os
 import settings
 import utils
 from flask import Flask, Blueprint
@@ -13,7 +13,7 @@ from api.gan.endpoints.client import ns as gan_client_namespace
 application = Flask(__name__)
 
 # load logging configuration and create log object
-logging.config.fileConfig('logging.conf')
+logging.config.fileConfig(os.path.join(os.path.dirname(__file__), 'logging.conf'))
 log = logging.getLogger(__name__)
 
 
