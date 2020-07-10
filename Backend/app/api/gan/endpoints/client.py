@@ -38,7 +38,6 @@ class GanPrediction(Resource):
         try:
             image_file = request.files[UPLOAD_KEY]
             image_name = image_file.filename
-            print(type(image_name))
             image_file = Image.open(image_file)
             image_dict = {'image': image_file, 'image_name': image_name}
 
@@ -53,7 +52,7 @@ class GanPrediction(Resource):
             results = make_prediction(image_dict)
             
             #results_json = [{'digit': res[0], 'probability': res[1]} for res in results]
-            return {'prediction_result': 'Successfully upscaled and saved in the working direcory'}, 200
+            return {'prediction_result': 'Successfully upscaled and saved in the Output_Image direcory'}, 200
 
         except Exception as inst:
             return {'message': 'internal error: {}'.format(inst)}, 500

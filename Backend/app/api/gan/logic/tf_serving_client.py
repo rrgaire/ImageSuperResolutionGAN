@@ -8,6 +8,7 @@ import logging
 import settings
 import utils
 import tensorflow as tf
+from os.path import dirname as dir
 
 # Communication to TensorFlow server via gRPC
 import grpc
@@ -16,7 +17,7 @@ from tensorflow_serving.apis import prediction_service_pb2_grpc
 
 
 log = logging.getLogger(__name__)
-save_dir = os.path.join(os.path.dirname(__name__), 'Output_Images')
+save_dir = os.path.join(dir(dir(dir(dir(dir(__file__))))), 'Output_Images')
 
 def __get_tf_server_connection_params__():
     
