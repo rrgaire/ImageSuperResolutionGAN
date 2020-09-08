@@ -12,8 +12,8 @@ class Body extends Component {
     previewFiles: [],
   };
 
-  handleServerUpload = (fileName) => {
-    console.log("handleupload");
+  handleServerUpload = async (fileName) => {
+    console.log("handleServerUpload");
 
     let files = [...this.state.previewFiles];
     let file = files.find((f) => f.name === fileName);
@@ -72,15 +72,20 @@ class Body extends Component {
   render() {
     const { previewFiles, loading, uploaded, selected } = this.state;
     return (
-      <div className="container section-main">
-        <ImageUploader onImageUpload={this.handleImageUpload} />
-        {uploaded && (
+      <div className="row section-main">
+        <div className="col-9 left p-0 ">
+          <ImageUploader onImageUpload={this.handleImageUpload} />
+        </div>
+        <div className="col-3 right p-0">
+        </div>
+        
+        {/* {uploaded && (
           <ImagePreviewer
             fileArray={previewFiles}
             onImageClick={this.handleServerUpload}
           />
         )}
-        {selected && <ImageCard original={selected.url} loading={loading} />}
+        {selected && <ImageCard original={selected.url} loading={loading} />} */}
       </div>
     );
   }

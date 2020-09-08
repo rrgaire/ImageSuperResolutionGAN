@@ -11,7 +11,7 @@ class Footer extends Component {
           <div className="footer-section contact form"></div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; 073BCT | Designed By 073BCT</p>
+          <p>&copy; lorpsu fasadf</p>
         </div>
       </div>
     );
