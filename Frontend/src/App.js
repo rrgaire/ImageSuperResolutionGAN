@@ -2,9 +2,9 @@ import React from "react";
 import "./App.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
-import NavBar from "./components/navBar";
+// import NavBar from "./components/navBar";
 import Body from "./components/body";
-import Footer from "./components/footer";
+// import Footer from "./components/footer";
 
 function App() {
   return (
@@ -15,9 +15,9 @@ function App() {
       <div className="content-wrap">
         <Body />
       </div>
-      <div className="footer-wrap">
+      {/* <div className="footer-wrap">
         <Footer />
-      </div>
+      </div> */}
     </div>
   );
 }

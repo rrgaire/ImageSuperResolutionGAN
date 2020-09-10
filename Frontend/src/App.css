@@ -1,7 +1,8 @@
 .page-container {
   display: grid;
-  grid-template-rows: 10fr 1fr;
   min-height: 100vh;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: small;
 }
 
 /* Main Body*/
@@ -15,8 +16,12 @@
   width: 100%;
 }
 .left {
-  background-color: #303036;
+  background-color: #303742;
   color: #d3d3d3;
+  display: grid;
+}
+.right{
+  background-color: #42454b;
 }
 .card-sr {
   background-color: #37494b;
@@ -24,16 +29,87 @@
   height: 80%;
   width: 80%;
   margin: auto;
+  display: grid;
 }
-.card-sr .image-uploader {
+.image-uploader {
   margin: auto;
   border-radius: 1rem;
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
-  align-content: center;
-  justify-content: center;
   padding: 1rem;
   text-align: center;
+}
+
+.ram {
+  height: 50%;
+  /* border: 2px solid green; */
+}
+.image-container {
+  height: 100%;
+  width: 100%;
+  /* border: 1px solid #ff0000; */
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+.image-container > img {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-height: 100%;
+  min-width: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.select-all-box{
+  background-color: black;  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem;
+}
+
+.list-image-box{
+  border: 1px solid #498cb3;
+  /* background-color: ;   */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem;
+}
+
+.list-box-inner{
+  display: flex;
+  flex-direction: column;
+}
+
+.two-cols-inside-list-box{
+    display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+}
+.ckbox{
+  margin-right: 1rem;
+  background-color: skyblue;
+  cursor: pointer;
+}
+.clear-images-button{
+  background-color: rgb(85, 143, 202);
+  border: 1px solid rgb(85, 143, 202);
+  border-radius: 0.25rem;
+  color: white;
+}
+.scale-button{
+  margin-right: 1rem;
+  background-color: rgb(69, 105, 141);
+  border: 1px solid rgb(85, 143, 202);
+  border-radius: 0.25rem;
+  color: white;
+}
+.remove-image-button{
+  background-color: rgb(109, 21, 21);
+  border: 1px solid rgb(85, 143, 202);
+  border-radius: 0.25rem;
+  color: white;
 }
 /* .loader {
   display: flex;

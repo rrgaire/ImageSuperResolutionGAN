@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
+import sizeOf from "image-size";
+
 import ImageUploader from "./imageUploader";
-import ImageCard from "./imageCard";
-import ImagePreviewer from "./imagePreveiwer";
+import LeftContainer from "./leftContainer";
+import ImagePreviewer from "./previewImage";
+
 
 class Body extends Component {
   state = {
@@ -53,10 +56,14 @@ class Body extends Component {
       temp["name"] = uploadedFiles[i].name;
       temp["url"] = await URL.createObjectURL(uploadedFiles[i]);
       temp["file"] = uploadedFiles[i];
+      temp["size"] = uploadedFiles[i].size;
+
+
       files.push(temp);
+      console.log(temp);
     }
     this.setState({
-      inputFiles: [...uploadedFiles],
+      // inputFiles: [...uploadedFiles],
       previewFiles: [...files],
       uploaded: true,
       loading: true,
@@ -72,20 +79,24 @@ class Body extends Component {
   render() {
     const { previewFiles, loading, uploaded, selected } = this.state;
     return (
-      <div className="row section-main">
+      <div className="row section-main p-0 m-0">
         <div className="col-9 left p-0 ">
-          <ImageUploader onImageUpload={this.handleImageUpload} />
+          {!selected && (
+            <ImageUploader onImageUpload={this.handleImageUpload} />
+          )}
+          {selected && (
+            <LeftContainer files={previewFiles} original={selected.url} loading={loading} />
+          )}
         </div>
-        <div className="col-3 right p-0">
-        </div>
-        
+        <div className="col-3 right p-0"></div>
+
         {/* {uploaded && (
           <ImagePreviewer
             fileArray={previewFiles}
             onImageClick={this.handleServerUpload}
           />
         )}
-        {selected && <ImageCard original={selected.url} loading={loading} />} */}
+        {selected && <LeftContainer original={selected.url} loading={loading} />} */}
       </div>
     );
   }
