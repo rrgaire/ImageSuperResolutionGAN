@@ -6,18 +6,88 @@ import ImageUploader from "./imageUploader";
 import LeftContainer from "./leftContainer";
 import ImagePreviewer from "./previewImage";
 
-
 class Body extends Component {
   state = {
+    allSelected: false,
     selected: null,
     uploaded: false,
     loading: false,
     previewFiles: [],
+    noOfSelected: 0,
+  };
+  handleDelete = (f) => {
+    let files = [...this.state.previewFiles];
+    files = files.filter((file) => f !== file);
+    console.log(files.length);
+    if (files.length === 0) {
+      console.log("handle clear all called");
+      this.handleClearAll();
+      return;
+    }
+
+    let { allSelected, noOfSelected } = this.state;
+
+    if (f.checked) {
+      noOfSelected = noOfSelected - 1;
+    }
+    allSelected = noOfSelected === files.length ? true : false;
+
+    this.setState({
+      allSelected,
+      noOfSelected,
+      previewFiles: files,
+    });
+  };
+
+  handleSelectAll = () => {
+    let allSelectState = !this.state.allSelected;
+    let files = [...this.state.previewFiles];
+    files.map((f) => {
+      let file = { ...f };
+      f.checked = allSelectState;
+      return f;
+    });
+    let noOfSelected = allSelectState ? files.length : 0;
+    this.setState({
+      previewFiles: files,
+      allSelected: allSelectState,
+      noOfSelected,
+    });
+    console.log(...files, noOfSelected);
+  };
+
+  handleSelectOne = (f) => {
+    let files = [...this.state.previewFiles];
+    let file = files.find((file) => file === f);
+    let index = files.indexOf(file);
+    let ff = { ...file };
+    ff.checked = !ff.checked;
+    let noOfSelected = this.state.noOfSelected;
+    noOfSelected = ff.checked ? noOfSelected + 1 : noOfSelected - 1;
+    console.log(noOfSelected);
+    let allSelected = noOfSelected === files.length ? true : false;
+    files[index] = ff;
+    this.setState({
+      previewFiles: files,
+      noOfSelected,
+      allSelected,
+    });
+  };
+
+  handleClearAll = () => {
+    console.log("allselected: ", this.state.allSelected);
+    this.setState({
+      noOfSelected: 0,
+      allSelected: false,
+      selected: null,
+      uploaded: false,
+      loading: false,
+      previewFiles: [],
+    });
+    
   };
 
   handleServerUpload = async (fileName) => {
-    console.log("handleServerUpload");
-
     let files = [...this.state.previewFiles];
     let file = files.find((f) => f.name === fileName);
     let fileIndex = files.indexOf(file);
@@ -35,7 +105,7 @@ class Body extends Component {
       // let result = await axios.post("endpoint here", fd); //endpoint here
       // console.log(result);
       // if(error) return displaying error message.
-      f["upscaled"] = "Data received from server";
+      // f["upscaled"] = "Data received from server";
       files[fileIndex] = f;
       console.log(files);
       this.setState({
@@ -53,14 +123,14 @@ class Body extends Component {
 
     for (let i = 0; i < numberOfFiles; i++) {
       let temp = {};
-      temp["name"] = uploadedFiles[i].name;
+      temp["name"] = `image${i + 1}.${uploadedFiles[i].name.split(".")[1]}`;
       temp["url"] = await URL.createObjectURL(uploadedFiles[i]);
       temp["file"] = uploadedFiles[i];
       temp["size"] = uploadedFiles[i].size;
-
+      temp["checked"] = false;
 
       files.push(temp);
-      console.log(temp);
+      // console.log(temp);
     }
     this.setState({
       // inputFiles: [...uploadedFiles],
@@ -70,14 +140,20 @@ class Body extends Component {
       selected: files[0],
     });
 
-    this.handleServerUpload(this.state.selected.name);
+    // this.handleServerUpload(this.state.selected.name);
 
-    setTimeout(() => {
-      this.setState({ loading: false });
-    }, 5000);
+    // setTimeout(() => {
+    //   this.setState({ loading: false });
+    // }, 5000);
   };
   render() {
-    const { previewFiles, loading, uploaded, selected } = this.state;
+    const {
+      previewFiles,
+      loading,
+      uploaded,
+      selected,
+      allSelected,
+    } = this.state;
     return (
       <div className="row section-main p-0 m-0">
         <div className="col-9 left p-0 ">
@@ -85,10 +161,19 @@ class Body extends Component {
             <ImageUploader onImageUpload={this.handleImageUpload} />
           )}
           {selected && (
-            <LeftContainer files={previewFiles} original={selected.url} loading={loading} />
+            <LeftContainer
+              files={previewFiles}
+              original={selected.url}
+              loading={loading}
+              allSelected={allSelected}
+              onClearAll={this.handleClearAll}
+              onSelectAll={this.handleSelectAll}
+              onSelectOne={this.handleSelectOne}
+              onDelete={this.handleDelete}
+            />
           )}
         </div>
-        <div className="col-3 right p-0"></div>
+        <div className="col-3 right p-0">Right Container</div>
 
         {/* {uploaded && (
           <ImagePreviewer

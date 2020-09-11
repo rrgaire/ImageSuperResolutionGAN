@@ -20,8 +20,9 @@
   color: #d3d3d3;
   display: grid;
 }
-.right{
+.right {
   background-color: #42454b;
+  color: #d3d3d3;
 }
 .card-sr {
   background-color: #37494b;
@@ -60,56 +61,62 @@
   transform: translate(-50%, -50%);
 }
 
-.select-all-box{
-  background-color: black;  
+.select-all-box {
+  background-color: black;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
-.list-image-box{
+.image-detail-box {
   border: 1px solid #498cb3;
   /* background-color: ;   */
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 6fr 3fr 1fr;
+  justify-content: space-around;
   align-items: center;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
-.list-box-inner{
+.list-box-inner {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
-.two-cols-inside-list-box{
-    display: flex;
+.two-cols-inside-detail-box {
+  display: flex;
   /* justify-content: space-between; */
   align-items: center;
 }
-.ckbox{
+.ckbox {
   margin-right: 1rem;
   background-color: skyblue;
   cursor: pointer;
 }
-.clear-images-button{
+.clear-images-button {
   background-color: rgb(85, 143, 202);
   border: 1px solid rgb(85, 143, 202);
   border-radius: 0.25rem;
   color: white;
 }
-.scale-button{
+.scale-button {
   margin-right: 1rem;
   background-color: rgb(69, 105, 141);
   border: 1px solid rgb(85, 143, 202);
   border-radius: 0.25rem;
   color: white;
 }
-.remove-image-button{
+.remove-image-button {
   background-color: rgb(109, 21, 21);
   border: 1px solid rgb(85, 143, 202);
   border-radius: 0.25rem;
   color: white;
+}
+.remove-image-button-wrap{
+  display: flex;
+  justify-content: flex-end;
 }
 /* .loader {
   display: flex;

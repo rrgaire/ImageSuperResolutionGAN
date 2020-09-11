@@ -1,13 +1,22 @@
 import React from "react";
 import SelectAllBar from "./selectAllBar";
 import ListImage from './listImage';
-const ControlImageList = ({ files}) => {
+const ControlImageList = ({
+  files,
+  onClearAll,
+  onSelectAll,
+  onSelectOne,
+  allSelected,
+  onDelete,
+}) => {
   return (
-    <div className="row m-0 list-preview ram">
-      <div className="col m-0 p-0">
-        <SelectAllBar />
-        <ListImage files={files}/>
-      </div>
+    <div className=" ram">
+      <SelectAllBar
+        onClearAll={onClearAll}
+        onSelectAll={onSelectAll}
+        allSelected={allSelected}
+      />
+      <ListImage files={files} onSelectOne={onSelectOne} onDelete={onDelete}/>
     </div>
   );
 };
