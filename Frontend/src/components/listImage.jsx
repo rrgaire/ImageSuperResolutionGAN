@@ -1,6 +1,6 @@
 import React from "react";
 
-const ListImage = ({ files, onSelectOne, onDelete }) => {
+const ListImage = ({ files, onSelectOne, onDelete, onServerUpload }) => {
   return (
     <div>
       {files.map((f) => (
@@ -20,7 +20,10 @@ const ListImage = ({ files, onSelectOne, onDelete }) => {
             </div>
           </div>
           <div className="two-cols-inside-detail-box">
-            <button type="button" className="scale-button">
+            <button
+              type="button"
+              className="scale-button"
+              onClick={() => onServerUpload(f)}>
               Scale
             </button>
             <div className="list-box-inner">

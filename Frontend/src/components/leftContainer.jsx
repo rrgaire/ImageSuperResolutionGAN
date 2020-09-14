@@ -12,6 +12,7 @@ const LeftContainer = ({
   onSelectOne,
   allSelected,
   onDelete,
+  onServerUpload,
 }) => (
   <div className="">
     <PreviewImage original={original} loading={loading} />
@@ -22,6 +23,7 @@ const LeftContainer = ({
       onSelectAll={onSelectAll}
       onSelectOne={onSelectOne}
       onDelete={onDelete}
+      onServerUpload={onServerUpload}
     />
   </div>
 );

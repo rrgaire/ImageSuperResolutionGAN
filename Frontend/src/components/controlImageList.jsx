@@ -1,6 +1,6 @@
 import React from "react";
 import SelectAllBar from "./selectAllBar";
-import ListImage from './listImage';
+import ListImage from "./listImage";
 const ControlImageList = ({
   files,
   onClearAll,
@@ -8,6 +8,7 @@ const ControlImageList = ({
   onSelectOne,
   allSelected,
   onDelete,
+  onServerUpload
 }) => {
   return (
     <div className=" ram">
@@ -16,7 +17,12 @@ const ControlImageList = ({
         onSelectAll={onSelectAll}
         allSelected={allSelected}
       />
-      <ListImage files={files} onSelectOne={onSelectOne} onDelete={onDelete}/>
+      <ListImage
+        files={files}
+        onSelectOne={onSelectOne}
+        onDelete={onDelete}
+        onServerUpload={onServerUpload}
+      />
     </div>
   );
 };

@@ -6,6 +6,8 @@ import ImageUploader from "./imageUploader";
 import LeftContainer from "./leftContainer";
 import ImagePreviewer from "./previewImage";
 
+import { postUrl } from "../config.json";
+
 class Body extends Component {
   state = {
     allSelected: false,
@@ -84,36 +86,45 @@ class Body extends Component {
       loading: false,
       previewFiles: [],
     });
-    
   };
 
-  handleServerUpload = async (fileName) => {
+  handleServerUpload = async (selectedFile) => {
     let files = [...this.state.previewFiles];
-    let file = files.find((f) => f.name === fileName);
+    let file = files.find((f) => f === selectedFile);
     let fileIndex = files.indexOf(file);
     console.log(fileIndex);
     let f = { ...file };
     this.setState({
       selected: f,
     });
-    if (f.upscaled) {
-      console.log("No need to process in server");
-    } else {
-      console.log("Send to server for processing");
-      // const fd = new FormData();
-      // fd.append("image", obj.file, obj.name);
-      // let result = await axios.post("endpoint here", fd); //endpoint here
-      // console.log(result);
-      // if(error) return displaying error message.
-      // f["upscaled"] = "Data received from server";
-      files[fileIndex] = f;
-      console.log(files);
-      this.setState({
-        previewFiles: files,
-        selected: f,
+    console.log(f["file"]);
+
+    console.log("Send to server for processing");
+    const form_data = new FormData();
+    form_data.append("image", f["file"], f["name"]);
+    console.log(form_data);
+    //endpoint here
+    try {
+      let result = await axios.post(postUrl, form_data, {
+        headers: {
+          "content-type": "multipart/form-data",
+          accept: "application/json",
+        },
       });
-      console.log(this.state.previewFiles);
+    } catch (ex) {
+      console.log("Some error occured!");
+      return;
     }
+
+    // if(error) return displaying error message
+    f["upscaled"] = "Data received from server";
+    files[fileIndex] = f;
+    console.log(files);
+    this.setState({
+      previewFiles: files,
+      selected: f,
+    });
+    console.log(this.state.previewFiles);
   };
 
   handleImageUpload = async (e) => {
@@ -170,6 +181,7 @@ class Body extends Component {
               onSelectAll={this.handleSelectAll}
               onSelectOne={this.handleSelectOne}
               onDelete={this.handleDelete}
+              onServerUpload={this.handleServerUpload}
             />
           )}
         </div>
