@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
-import sizeOf from "image-size";
+// import sizeOf from "image-size";
 
 import ImageUploader from "./imageUploader";
 import LeftContainer from "./leftContainer";
-import ImagePreviewer from "./previewImage";
-
-import { postUrl } from "../config.json";
+// import ImagePreviewer from "./previewImage";
 
 class Body extends Component {
   state = {
@@ -97,20 +95,20 @@ class Body extends Component {
     this.setState({
       selected: f,
     });
-    console.log(f["file"]);
 
-    console.log("Send to server for processing");
+    // console.log("Send to server for processing");
     const form_data = new FormData();
-    form_data.append("image", f["file"], f["name"]);
+    form_data.append("image", f["file"], f["file"].name);
     console.log(form_data);
-    //endpoint here
+
     try {
-      let result = await axios.post(postUrl, form_data, {
+      let result = await axios.post('http://0.0.0.0:5001/tf_api/isrgan_client/prediction', form_data, {
         headers: {
           "content-type": "multipart/form-data",
-          accept: "application/json",
+          "accept": "application/json",
         },
       });
+      console.log("resposnse", result);
     } catch (ex) {
       console.log("Some error occured!");
       return;
