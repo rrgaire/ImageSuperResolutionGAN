@@ -19,6 +19,8 @@
   background-color: #303742;
   color: #d3d3d3;
   display: grid;
+  /* align-items: center;
+  justify-items: center; */
 }
 .right {
   background-color: #42454b;

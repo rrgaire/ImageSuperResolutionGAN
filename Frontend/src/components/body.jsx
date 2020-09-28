@@ -17,6 +17,12 @@ class Body extends Component {
     previewFiles: [],
     noOfSelected: 0,
   };
+  updateState = (...args) => {
+    this.setState({
+      ...args,
+    });
+  };
+
   handleDelete = (f) => {
     let files = [...this.state.previewFiles];
     files = files.filter((file) => f !== file);
@@ -138,11 +144,10 @@ class Body extends Component {
       temp["name"] = `image${i + 1}.${uploadedFiles[i].name.split(".")[1]}`;
       temp["url"] = await URL.createObjectURL(uploadedFiles[i]);
       temp["file"] = uploadedFiles[i];
-      temp["size"] = uploadedFiles[i].size;
+      temp["size"] = uploadedFiles[i].sizen;
       temp["checked"] = false;
-
       files.push(temp);
-      // console.log(temp);
+      console.log(typeof temp);
     }
     this.setState({
       // inputFiles: [...uploadedFiles],
