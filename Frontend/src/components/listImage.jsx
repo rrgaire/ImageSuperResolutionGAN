@@ -2,7 +2,7 @@ import React from "react";
 
 const ListImage = ({ files, onSelectOne, onDelete, onServerUpload }) => {
   return (
-    <div>
+    <div className="image-list-box">
       {files.map((f) => (
         <div key={f.name} className="image-detail-box">
           <div className="two-cols-inside-detail-box">

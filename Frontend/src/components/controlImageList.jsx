@@ -8,10 +8,10 @@ const ControlImageList = ({
   onSelectOne,
   allSelected,
   onDelete,
-  onServerUpload
+  onServerUpload,
 }) => {
   return (
-    <div className=" ram">
+    <div className="image-control-box">
       <SelectAllBar
         onClearAll={onClearAll}
         onSelectAll={onSelectAll}

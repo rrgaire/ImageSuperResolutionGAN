@@ -100,6 +100,7 @@ class Body extends Component {
     let f = { ...file };
     this.setState({
       selected: f,
+      loading: true,
     });
 
     // console.log("Send to server for processing");
@@ -108,27 +109,31 @@ class Body extends Component {
     console.log(form_data);
 
     try {
-      let result = await axios.post('http://0.0.0.0:5001/tf_api/isrgan_client/prediction', form_data, {
-        headers: {
-          "content-type": "multipart/form-data",
-          "accept": "application/json",
-        },
+      console.log("connecting............");
+      let result = await axios.post(
+        "http://127.0.0.1:5000/tf_api/isrgan_client/prediction",
+        form_data,
+        {
+          headers: {
+            "content-type": "multipart/form-data",
+            accept: "application/json",
+          },
+        }
+      );
+      result = result["data"]["prediction_result"];
+      f["upscaled"] = result;
+      files[fileIndex] = f;
+      this.setState({
+        previewFiles: files,
+        selected: f,
+        loading: false,
       });
-      console.log("resposnse", result);
     } catch (ex) {
       console.log("Some error occured!");
       return;
     }
 
     // if(error) return displaying error message
-    f["upscaled"] = "Data received from server";
-    files[fileIndex] = f;
-    console.log(files);
-    this.setState({
-      previewFiles: files,
-      selected: f,
-    });
-    console.log(this.state.previewFiles);
   };
 
   handleImageUpload = async (e) => {
@@ -141,10 +146,9 @@ class Body extends Component {
       temp["name"] = `image${i + 1}.${uploadedFiles[i].name.split(".")[1]}`;
       temp["url"] = await URL.createObjectURL(uploadedFiles[i]);
       temp["file"] = uploadedFiles[i];
-      temp["size"] = uploadedFiles[i].sizen;
+      temp["size"] = uploadedFiles[i].size;
       temp["checked"] = false;
       files.push(temp);
-      console.log(typeof temp);
     }
     this.setState({
       // inputFiles: [...uploadedFiles],
@@ -153,7 +157,6 @@ class Body extends Component {
       loading: true,
       selected: files[0],
     });
-
     // this.handleServerUpload(this.state.selected.name);
 
     // setTimeout(() => {
@@ -169,15 +172,17 @@ class Body extends Component {
       allSelected,
     } = this.state;
     return (
-      <div className="row section-main p-0 m-0">
-        <div className="col-9 left p-0 ">
+      <div className=" section-main ">
+        <div className="left ">
           {!selected && (
             <ImageUploader onImageUpload={this.handleImageUpload} />
           )}
           {selected && (
             <LeftContainer
+              loading={loading}
               files={previewFiles}
               original={selected.url}
+              upscaled={selected.upscaled}
               loading={loading}
               allSelected={allSelected}
               onClearAll={this.handleClearAll}
@@ -188,8 +193,7 @@ class Body extends Component {
             />
           )}
         </div>
-        <div className="col-3 right p-0">Right Container</div>
-
+        <div className="right">Right Container</div>
         {/* {uploaded && (
           <ImagePreviewer
             fileArray={previewFiles}

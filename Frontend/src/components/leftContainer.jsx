@@ -13,9 +13,10 @@ const LeftContainer = ({
   allSelected,
   onDelete,
   onServerUpload,
+  upscaled
 }) => (
-  <div className="">
-    <PreviewImage original={original} loading={loading} />
+  <div className="left-container">
+    <PreviewImage original={original} upscaled={upscaled} loading={loading} />
     <ControlImageList
       files={files}
       allSelected={allSelected}

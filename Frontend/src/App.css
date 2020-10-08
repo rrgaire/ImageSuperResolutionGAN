@@ -1,3 +1,13 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
 .page-container {
   display: grid;
   min-height: 100vh;
@@ -14,8 +24,10 @@
   border: none;
   height: 100%;
   width: 100%;
+  display: flex;
 }
 .left {
+  flex: 0 0 70%;
   background-color: #303742;
   color: #d3d3d3;
   display: grid;
@@ -23,9 +35,15 @@
   justify-items: center; */
 }
 .right {
+  flex: 0 0 30%;
   background-color: #42454b;
   color: #d3d3d3;
 }
+.left-container {
+  display: flex;
+  flex-direction: column;
+}
+/* image uploader */
 .card-sr {
   background-color: #37494b;
   border-radius: 5px;
@@ -40,15 +58,24 @@
   padding: 1rem;
   text-align: center;
 }
+.left-container {
+  display: flex;
+  flex-direction: column;
+}
 
-.ram {
-  height: 50%;
-  /* border: 2px solid green; */
+/* preview-image */
+.image-preview-box {
+  flex: 0 0 50%;
+  display: flex;
+  justify-content: space-around;
+}
+.image-container-wrapper {
+  padding: 0.5%;
+  flex: 0 0 50%;
 }
 .image-container {
   height: 100%;
   width: 100%;
-  /* border: 1px solid #ff0000; */
   position: relative;
   display: inline-block;
   overflow: hidden;
@@ -62,6 +89,12 @@
   min-width: 100%;
   transform: translate(-50%, -50%);
 }
+/* control image list */
+.image-control-box {
+  flex: 0 0 50%;
+  display: flex;
+  flex-direction: column;
+}
 
 .select-all-box {
   background-color: black;
@@ -70,7 +103,13 @@
   align-items: center;
   padding: 0.5rem;
 }
-
+/* yo milauna parne xa...height hardcoded xa */
+.image-list-box {
+  /* height: 300px; */
+  /* display: flex; */
+  height: 300px;
+  overflow-y: auto;
+}
 .image-detail-box {
   border: 1px solid #498cb3;
   /* background-color: ;   */
@@ -102,6 +141,7 @@
   border: 1px solid rgb(85, 143, 202);
   border-radius: 0.25rem;
   color: white;
+  padding: 2px 4px;
 }
 .scale-button {
   margin-right: 1rem;
@@ -109,14 +149,16 @@
   border: 1px solid rgb(85, 143, 202);
   border-radius: 0.25rem;
   color: white;
+  padding: 2px 4px;
 }
 .remove-image-button {
   background-color: rgb(109, 21, 21);
   border: 1px solid rgb(85, 143, 202);
   border-radius: 0.25rem;
   color: white;
+  padding: 5px 10px;
 }
-.remove-image-button-wrap{
+.remove-image-button-wrap {
   display: flex;
   justify-content: flex-end;
 }

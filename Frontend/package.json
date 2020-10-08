@@ -19,7 +19,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "react-scripts build && aws s3 rm s3://ronastbucket/ --recursive && aws s3 cp ./build s3://ronastbucket/ --recursive --acl public-read"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,7 +36,7 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "http://0.0.0.0:5001/tf_api/"
+  } 
 
 }
+
