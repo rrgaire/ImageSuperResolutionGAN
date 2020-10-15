@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 // import sizeOf from "image-size";
 
+import { apiUrl } from '../config.json';
 import ImageUploader from "./imageUploader";
 import LeftContainer from "./leftContainer";
 // import ImagePreviewer from "./previewImage";
@@ -111,7 +112,7 @@ class Body extends Component {
     try {
       console.log("connecting............");
       let result = await axios.post(
-        "http://127.0.0.1:5000/tf_api/isrgan_client/prediction",
+        apiUrl,
         form_data,
         {
           headers: {
