@@ -43,6 +43,14 @@ html {
   display: flex;
   flex-direction: column;
 }
+
+.model-select {
+  margin-top: 65%;
+  margin-left: 15%;
+  margin-right: 5%;
+  color: #d3d3d3;
+}
+
 /* image uploader */
 .card-sr {
   background-color: #37494b;

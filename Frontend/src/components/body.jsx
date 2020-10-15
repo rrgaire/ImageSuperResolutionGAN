@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import axios from "axios";
 // import sizeOf from "image-size";
 
-import { apiUrl } from '../config.json';
 import ImageUploader from "./imageUploader";
 import LeftContainer from "./leftContainer";
+import ModelSelect from "./modelSelect";
+
+
 // import ImagePreviewer from "./previewImage";
 
 class Body extends Component {
@@ -106,13 +108,13 @@ class Body extends Component {
 
     // console.log("Send to server for processing");
     const form_data = new FormData();
-    form_data.append("image", f["file"], f["file"].name);
+    form_data.append("image", f["file"], f["file"].name, f.modelType);
     console.log(form_data);
 
     try {
       console.log("connecting............");
       let result = await axios.post(
-        apiUrl,
+        "http://127.0.0.1:5001/tf_api/isrgan_client/prediction",
         form_data,
         {
           headers: {
@@ -145,11 +147,14 @@ class Body extends Component {
 
     for (let i = 0; i < numberOfFiles; i++) {
       let temp = {};
+
       temp["name"] = `image${i + 1}.${uploadedFiles[i].name.split(".")[1]}`;
       temp["url"] = await URL.createObjectURL(uploadedFiles[i]);
       temp["file"] = uploadedFiles[i];
+      temp["modelType"] = 'default';
       temp["size"] = uploadedFiles[i].size;
       temp["checked"] = false;
+
       files.push(temp);
     }
     this.setState({
@@ -165,6 +170,23 @@ class Body extends Component {
     //   this.setState({ loading: false });
     // }, 5000);
   };
+
+  handleModelType = async (model_type) => {
+    let files = [...this.state.previewFiles];
+    let file = this.state.selected
+    file['modelType'] = model_type;
+    let fileIndex = files.indexOf(file);
+    console.log(fileIndex);
+    console.log('modeltype:', model_type)
+    files[fileIndex] = file;
+    this.setState({
+      selected: file,
+      previewFiles: files,
+
+    });
+  };
+
+
   render() {
     const {
       previewFiles,
@@ -195,7 +217,12 @@ class Body extends Component {
             />
           )}
         </div>
-        <div className="right">Right Container</div>
+        <div className="right">
+          <div className= 'model-select'>
+          <ModelSelect  onModelTypeSelect={this.handleModelType}/>
+          </div>
+
+        </div>
         {/* {uploaded && (
           <ImagePreviewer
             fileArray={previewFiles}
