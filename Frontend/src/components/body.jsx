@@ -128,6 +128,7 @@ class Body extends Component {
         selected: f,
         loading: false,
       });
+      console.log('done');
     } catch (ex) {
       console.log("Some error occured!");
       return;
