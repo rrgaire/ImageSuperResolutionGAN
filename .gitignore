@@ -2,3 +2,4 @@
 **/__pycache__/*
 **/.vscode/*
 Backend/venv/
+Frontend/debug.log
