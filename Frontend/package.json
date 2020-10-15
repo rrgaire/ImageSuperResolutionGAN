@@ -12,8 +12,7 @@
     "image-size": "^0.9.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
-    "react-spinners": "^0.8.3"
+    "react-scripts": "3.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -36,7 +35,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  } 
-
+  }
 }
-
