@@ -4,6 +4,7 @@ from scipy import misc
 from PIL import Image
 import json
 import jsonpickle
+import base64
 
 from flask import request
 from flask_restplus import Resource
@@ -33,7 +34,7 @@ class GanPrediction(Resource):
                 200: "Success",
                 400: "Bad request",
                 500: "Internal server error"
-                })
+            })
     @ns.expect(upload_parser)
     def post(self):
 
@@ -45,18 +46,17 @@ class GanPrediction(Resource):
 
             image_dict = {'image': image_file, 'image_name': image_name}
 
-
         except Exception as inst:
             return {'message': 'something wrong with incoming request. ' +
                                'Original message: {}'.format(inst)}, 400
 
-
-
         try:
             results = make_prediction(image_dict)
-            results = jsonpickle.encode(results)
-            # print(results)
-            return {'prediction_result': results}, 200
+            # results = jsonpickle.encode(results)
+            buffer = io.BytesIO()
+            results.save(buffer, format='PNG')
+            buffer.seek(0)
+            return {'prediction_result': base64.b64encode(buffer.read()).decode('ascii')}, 200
 
         except Exception as inst:
             return {'message': 'internal error: {}'.format(inst)}, 500
