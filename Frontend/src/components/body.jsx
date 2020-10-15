@@ -153,17 +153,11 @@ class Body extends Component {
       files.push(temp);
     }
     this.setState({
-      // inputFiles: [...uploadedFiles],
       previewFiles: [...files],
       uploaded: true,
       loading: true,
       selected: files[0],
     });
-    // this.handleServerUpload(this.state.selected.name);
-
-    // setTimeout(() => {
-    //   this.setState({ loading: false });
-    // }, 5000);
   };
   render() {
     const {

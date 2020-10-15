@@ -1,5 +1,4 @@
 import React from "react";
-import { ClockLoader } from "react-spinners";
 import PreviewImage from "./previewImage";
 import ControlImageList from "./controlImageList";
 
