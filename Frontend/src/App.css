@@ -6,6 +6,7 @@
 
 html {
   font-size: 62.5%;
+  line-height: 1.5rem;
 }
 
 .page-container {
@@ -72,6 +73,7 @@ html {
 .image-container-wrapper {
   padding: 0.5%;
   flex: 0 0 50%;
+  position: relative;
 }
 .image-container {
   height: 100%;
@@ -79,6 +81,62 @@ html {
   position: relative;
   display: inline-block;
   overflow: hidden;
+}
+
+.ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 15rem;
+  height: 15rem;
+  background: transparent;
+  border: 0.3rem solid #3c3c3c;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 15rem;
+  font-size: 2rem;
+  letter-spacing: 0.4rem;
+  text-transform: uppercase;
+  color: #498cb3;
+  text-shadow: 0 0 1rem #498cb3;
+  box-shadow: 0 0 2rem rgba (0, 0, 0, 0.5);
+}
+.ring::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0.3rem solid transparent;
+  border-top: 0.3rem solid #498cb3;
+  /* border-right: 0.3rem solid #fff000; */
+  border-radius: 50%;
+  animation: animateCircle 2s linear infinite;
+}
+.ring-span {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 0.4rem;
+  background: transparent;
+  transform-origin: left;
+  animation: animate 2s linear infinite;
+}
+
+.ring-span::before {
+  content: "";
+  position: absolute;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: #498cb3;
+  top: -0.6rem;
+  right: -0.6rem;
+  box-shadow: 0 0 2rem #498cb3;
 }
 .image-container > img {
   display: block;
@@ -207,4 +265,24 @@ html {
   position: absolute;
   left: 0;
   bottom: 0;
+}
+
+/* Animations */
+
+@keyframes animate {
+  0% {
+    transform: rotate(-50deg);
+  }
+  100% {
+    transform: rotate(310deg);
+  }
+}
+
+@keyframes animateCircle {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
