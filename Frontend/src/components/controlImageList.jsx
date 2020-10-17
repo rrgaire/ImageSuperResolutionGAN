@@ -3,10 +3,10 @@ import SelectAllBar from "./selectAllBar";
 import ListImage from "./listImage";
 const ControlImageList = ({
   files,
+  // onSelectAll,
+  // allSelected,
   onClearAll,
-  onSelectAll,
   onSelectOne,
-  allSelected,
   onDelete,
   onServerUpload,
 }) => {
@@ -14,8 +14,8 @@ const ControlImageList = ({
     <div className="image-control-box">
       <SelectAllBar
         onClearAll={onClearAll}
-        onSelectAll={onSelectAll}
-        allSelected={allSelected}
+        // onSelectAll={onSelectAll}
+        // allSelected={allSelected}
       />
       <ListImage
         files={files}
@@ -26,5 +26,4 @@ const ControlImageList = ({
     </div>
   );
 };
-
 export default ControlImageList;

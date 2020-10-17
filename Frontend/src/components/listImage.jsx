@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
 const ListImage = ({ files, onSelectOne, onDelete, onServerUpload }) => {
   return (
     <div className="image-list-box">
       {files.map((f) => (
         <div key={f.name} className="image-detail-box">
-          <div className="two-cols-inside-detail-box">
-            <input
+          <div
+            className="two-cols-inside-detail-box image-select"
+            onClick={() => onSelectOne(f)}>
+            {/* <input
               type="checkbox"
               name="select-one"
               id="select-one"
               className="ckbox"
               checked={f.checked}
               onChange={() => onSelectOne(f)}
-            />
+            /> */}
             <div className="list-box-inner">
               <p className="m-0">Name: {f.name}</p>
               <p className="m-0">Size: {f.size}</p>
@@ -44,5 +46,4 @@ const ListImage = ({ files, onSelectOne, onDelete, onServerUpload }) => {
     </div>
   );
 };
-
 export default ListImage;

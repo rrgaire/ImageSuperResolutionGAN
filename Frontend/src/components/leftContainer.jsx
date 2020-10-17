@@ -3,29 +3,28 @@ import PreviewImage from "./previewImage";
 import ControlImageList from "./controlImageList";
 
 const LeftContainer = ({
+  // loading,
+  // onSelectAll,
+  // allSelected,
   files,
   original,
-  loading,
   onClearAll,
-  onSelectAll,
   onSelectOne,
-  allSelected,
   onDelete,
   onServerUpload,
   upscaled
 }) => (
   <div className="left-container">
-    <PreviewImage original={original} upscaled={upscaled} loading={loading} />
+    <PreviewImage original={original} upscaled={upscaled} />
     <ControlImageList
+      // allSelected={allSelected}
+      // onSelectAll={onSelectAll}
       files={files}
-      allSelected={allSelected}
       onClearAll={onClearAll}
-      onSelectAll={onSelectAll}
       onSelectOne={onSelectOne}
       onDelete={onDelete}
       onServerUpload={onServerUpload}
     />
   </div>
 );
-
 export default LeftContainer;

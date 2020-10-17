@@ -82,7 +82,7 @@ html {
   display: inline-block;
   overflow: hidden;
 }
-
+/* Loader */
 .ring {
   position: absolute;
   top: 50%;
@@ -188,6 +188,9 @@ html {
   display: flex;
   /* justify-content: space-between; */
   align-items: center;
+}
+.image-select{
+  cursor: pointer;
 }
 .ckbox {
   margin-right: 1rem;

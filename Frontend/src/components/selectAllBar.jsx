@@ -1,10 +1,11 @@
 import React from 'react';
 
-const SelectAllBar = ({ onClearAll, onSelectAll, allSelected }) => {
+const SelectAllBar = ({ onClearAll }) => {
   return (
     <div className="select-all-box">
       <div className="check-box-content">
-        <input
+        <h3>Image List</h3>
+        {/* <input
           type="checkbox"
           name="select-all"
           id="select-all"
@@ -14,7 +15,7 @@ const SelectAllBar = ({ onClearAll, onSelectAll, allSelected }) => {
         />
         <label htmlFor="select-all" style={{ marginBottom: 0 }}>
           Select All
-        </label>
+        </label> */}
       </div>
       <div>
         <button
