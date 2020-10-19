@@ -3,6 +3,8 @@ import axios from "axios";
 import { apiUrl } from "../config.json";
 import ImageUploader from "./imageUploader";
 import LeftContainer from "./leftContainer";
+import ModelSelect from "./modelSelect";
+
 
 class Body extends Component {
   state = {
@@ -93,16 +95,17 @@ class Body extends Component {
       selected: f,
       // loading: true,
     });
-    if (f.upscaled) {
-      return;
-    } else {
-      const form_data = new FormData();
-      form_data.append("image", f["file"], f["file"].name);
-      // console.log(form_data);
 
-      try {
-        console.log("connecting............");
-        let result = await axios.post(apiUrl, form_data, {
+    console.log('file', f)
+    const form_data = new FormData();
+    form_data.append("image", f["file"], f["file"].name, f.modelType);
+    console.log(form_data);
+
+    try {
+      console.log("connecting............");
+      let result = await axios.post(
+        apiUrl, form_data,
+        {
           headers: {
             "content-type": "multipart/form-data",
             accept: "application/json",
@@ -120,7 +123,7 @@ class Body extends Component {
         console.log("Some error occured!");
         return;
       }
-    }
+    
   };
 
   handleImageUpload = async (e) => {
@@ -130,11 +133,14 @@ class Body extends Component {
 
     for (let i = 0; i < numberOfFiles; i++) {
       let temp = {};
+
       temp["name"] = `image${i + 1}.${uploadedFiles[i].name.split(".")[1]}`;
       temp["url"] = await URL.createObjectURL(uploadedFiles[i]);
       temp["file"] = uploadedFiles[i];
+      temp["modelType"] = 'Generic';
       temp["size"] = uploadedFiles[i].size;
       temp["checked"] = false;
+
       files.push(temp);
     }
     this.setState({
@@ -145,6 +151,21 @@ class Body extends Component {
     });
     this.handleServerUpload(files[0]);
   };
+
+  handleModelType = async (model_type) => {
+    let files = [...this.state.previewFiles];
+    let file = this.state.selected
+    file['modelType'] = model_type;
+    let fileIndex = files.indexOf(file);
+    console.log('modeltype:', model_type)
+    files[fileIndex] = file;
+    this.setState({
+      selected: file,
+      previewFiles: files,
+
+    });
+  };
+
 
   render() {
     const {
@@ -174,7 +195,19 @@ class Body extends Component {
             />
           )}
         </div>
-        <div className="right">Right Container</div>
+        <div className="right">
+          <div className= 'model-select'>
+          <ModelSelect  onModelTypeSelect={this.handleModelType}/>
+          </div>
+
+        </div>
+        {/* {uploaded && (
+          <ImagePreviewer
+            fileArray={previewFiles}
+            onImageClick={this.handleServerUpload}
+          />
+        )}
+        {selected && <LeftContainer original={selected.url} loading={loading} />} */}
       </div>
     );
   }
