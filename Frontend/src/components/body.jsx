@@ -107,6 +107,7 @@ class Body extends Component {
     });
 
     // console.log("Send to server for processing");
+    console.log('file', f)
     const form_data = new FormData();
     form_data.append("image", f["file"], f["file"].name, f.modelType);
     console.log(form_data);
@@ -114,7 +115,7 @@ class Body extends Component {
     try {
       console.log("connecting............");
       let result = await axios.post(
-        "http://127.0.0.1:5001/tf_api/isrgan_client/prediction",
+        "http://127.0.0.1:5000/tf_api/isrgan_client/prediction",
         form_data,
         {
           headers: {
@@ -151,7 +152,7 @@ class Body extends Component {
       temp["name"] = `image${i + 1}.${uploadedFiles[i].name.split(".")[1]}`;
       temp["url"] = await URL.createObjectURL(uploadedFiles[i]);
       temp["file"] = uploadedFiles[i];
-      temp["modelType"] = 'default';
+      temp["modelType"] = 'Generic';
       temp["size"] = uploadedFiles[i].size;
       temp["checked"] = false;
 
@@ -176,7 +177,6 @@ class Body extends Component {
     let file = this.state.selected
     file['modelType'] = model_type;
     let fileIndex = files.indexOf(file);
-    console.log(fileIndex);
     console.log('modeltype:', model_type)
     files[fileIndex] = file;
     this.setState({
