@@ -98,7 +98,7 @@ class Body extends Component {
 
     console.log('file', f)
     const form_data = new FormData();
-    form_data.append("image", f["file"], f["file"].name, f.modelType);
+    form_data.append("image", f["file"], f["file"].name);
     console.log(form_data);
 
     try {
@@ -109,6 +109,7 @@ class Body extends Component {
           headers: {
             "content-type": "multipart/form-data",
             accept: "application/json",
+            'model_type': f.modelType,
           },
         });
         result = result["data"]["prediction_result"];
@@ -123,7 +124,7 @@ class Body extends Component {
         console.log("Some error occured!");
         return;
       }
-    
+
   };
 
   handleImageUpload = async (e) => {
@@ -137,7 +138,7 @@ class Body extends Component {
       temp["name"] = `image${i + 1}.${uploadedFiles[i].name.split(".")[1]}`;
       temp["url"] = await URL.createObjectURL(uploadedFiles[i]);
       temp["file"] = uploadedFiles[i];
-      temp["modelType"] = 'Generic';
+      temp["modelType"] = 'Generic Model';
       temp["size"] = uploadedFiles[i].size;
       temp["checked"] = false;
 
@@ -149,7 +150,7 @@ class Body extends Component {
       // loading: true,
       selected: files[0],
     });
-    this.handleServerUpload(files[0]);
+    // this.handleServerUpload(files[0]);
   };
 
   handleModelType = async (model_type) => {
@@ -157,7 +158,7 @@ class Body extends Component {
     let file = this.state.selected
     file['modelType'] = model_type;
     let fileIndex = files.indexOf(file);
-    console.log('modeltype:', model_type)
+    // console.log('modeltype:', model_type)
     files[fileIndex] = file;
     this.setState({
       selected: file,
@@ -195,12 +196,14 @@ class Body extends Component {
             />
           )}
         </div>
+        {selected && (
         <div className="right">
           <div className= 'model-select'>
           <ModelSelect  onModelTypeSelect={this.handleModelType}/>
           </div>
 
         </div>
+          )}
         {/* {uploaded && (
           <ImagePreviewer
             fileArray={previewFiles}

@@ -7,7 +7,7 @@ const ModelSelect = ({onModelTypeSelect}) => {
 
 
   const options = [
-    'Generic Model (Default)', 'Face Model', 'Medical Model'
+    'Generic Model', 'Face Model', 'Medical Model'
   ];
   const defaultOption = options[0];
   return (
