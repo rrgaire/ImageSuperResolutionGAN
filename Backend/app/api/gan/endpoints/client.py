@@ -3,7 +3,6 @@ import numpy as np
 from scipy import misc
 from PIL import Image
 import json
-import jsonpickle
 import base64
 
 from flask import request
@@ -39,12 +38,11 @@ class GanPrediction(Resource):
     def post(self):
 
         try:
-
             image_file = request.files[UPLOAD_KEY]
             image_name = image_file.filename
+            model_type = request.headers['model_type']
             image_file = Image.open(image_file)
-
-            image_dict = {'image': image_file, 'image_name': image_name}
+            image_dict = {'image': image_file, 'image_name': image_name, 'model_type': model_type}
 
         except Exception as inst:
             return {'message': 'something wrong with incoming request. ' +
@@ -52,7 +50,6 @@ class GanPrediction(Resource):
 
         try:
             results = make_prediction(image_dict)
-            # results = jsonpickle.encode(results)
             buffer = io.BytesIO()
             results.save(buffer, format='PNG')
             buffer.seek(0)
