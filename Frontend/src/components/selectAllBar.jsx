@@ -20,6 +20,24 @@ const SelectAllBar = () => {
           Select All
         </label> */}
       </div>
+
+      <div>
+        <label
+          style={{ color: "#1fb149", cursor: "pointer" }}
+          htmlFor="imageUpload">
+          Add More
+        </label>
+
+        <input
+          type="file"
+          multiple
+          accept="image/jpeg, image/png"
+          style={{ display: "none" }}
+          id="imageUpload"
+          onChange={context.uploadFiles}
+        />
+      </div>
+
       <div>
         <button
           type="button"

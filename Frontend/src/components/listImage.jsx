@@ -4,9 +4,11 @@ import FileContext from "../context/fileContext";
 
 const ListImage = () => {
   const context = useContext(FileContext);
+  const allFiles = context.getAllFiles();
+  const disableButton = context.getLoadingState();
   return (
     <div className="image-list-box">
-      {context.allFiles.map((f) => (
+      {allFiles.map((f) => (
         <div key={f.name} className="image-detail-box">
           <div
             className="two-cols-inside-detail-box image-select"
@@ -26,6 +28,7 @@ const ListImage = () => {
           </div>
           <div className="two-cols-inside-detail-box">
             <button
+              disabled={disableButton}
               type="button"
               className="scale-button"
               onClick={() => context.uploadFileToServer(f)}>
@@ -38,6 +41,7 @@ const ListImage = () => {
           </div>
           <div className="remove-image-button-wrap">
             <button
+              disabled={disableButton}
               type="button"
               className="remove-image-button"
               onClick={() => context.deleteFile(f)}>

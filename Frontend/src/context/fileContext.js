@@ -6,4 +6,7 @@ export default React.createContext({
   selectFile: (file) => {},
   uploadFileToServer: async (file) => {},
   deleteFile: (file) => {},
+  getSelectedFile: () => {},
+  getAllFiles: () => {},
+  getLoadingState: () => {},
 });

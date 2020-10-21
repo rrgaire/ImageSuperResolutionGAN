@@ -6,7 +6,6 @@ import FileContext from "../context/fileContext";
 
 const BodyF = () => {
   const context = useContext(FileContext);
-
   useEffect(() => {
     // console.log(context);
   }, [context]);
@@ -14,8 +13,8 @@ const BodyF = () => {
   return (
     <div className=" section-main ">
       <div className="left ">
-        {!context.selectedFile && <ImageUploader />}
-        {context.selectedFile && <LeftContainer />}
+        {!context.getSelectedFile() && <ImageUploader />}
+        {context.getSelectedFile() && <LeftContainer />}
       </div>
       <div className="right">Right Container</div>
     </div>
