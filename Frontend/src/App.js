@@ -5,7 +5,7 @@ import "./App.css";
 import GlobalState from "./context/GlobalState";
 
 // import NavBar from "./components/navBar";
-import BodyF from "./components/bodyF";
+import Body from "./components/body";
 // import Footer from "./components/footer";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
         <NavBar />
       </div> */}
         <div className="content-wrap">
-          <BodyF />
+          <Body />
         </div>
         {/* <div className="footer-wrap">
         <Footer />
