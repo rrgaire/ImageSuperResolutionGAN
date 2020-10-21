@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 
-const ListImage = ({ files, onSelectOne, onDelete, onServerUpload }) => {
+import FileContext from "../context/fileContext";
+
+const ListImage = () => {
+  const context = useContext(FileContext);
   return (
     <div className="image-list-box">
-      {files.map((f) => (
+      {context.allFiles.map((f) => (
         <div key={f.name} className="image-detail-box">
           <div
             className="two-cols-inside-detail-box image-select"
-            onClick={() => onSelectOne(f)}>
+            onClick={() => context.selectFile(f)}>
             {/* <input
               type="checkbox"
               name="select-one"
@@ -25,7 +28,7 @@ const ListImage = ({ files, onSelectOne, onDelete, onServerUpload }) => {
             <button
               type="button"
               className="scale-button"
-              onClick={() => onServerUpload(f)}>
+              onClick={() => context.uploadFileToServer(f)}>
               Scale
             </button>
             <div className="list-box-inner">
@@ -37,7 +40,7 @@ const ListImage = ({ files, onSelectOne, onDelete, onServerUpload }) => {
             <button
               type="button"
               className="remove-image-button"
-              onClick={() => onDelete(f)}>
+              onClick={() => context.deleteFile(f)}>
               X
             </button>
           </div>

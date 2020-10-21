@@ -1,22 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import Loader from "./loader";
 
-const PreviewImage = ({ original, upscaled }) => {
+import FileContext from "../context/fileContext";
+
+const PreviewImage = () => {
+  const context = useContext(FileContext);
+  const fileUrl = context.selectedFile.url;
+  const upscaledData = context.selectedFile.upscaledData;
+  const isFileUpscaled = upscaledData !== "";
   return (
     <div className="image-preview-box">
       <div className="image-container-wrapper">
         <div className="image-container">
-          <img src={original} alt="Your Img" />
+          <img src={fileUrl} alt="Your Img" />
         </div>
       </div>
       <div className="image-container-wrapper">
-        {upscaled && (
+        {isFileUpscaled && (
           <div className="image-container">
-            <img src={`data:image/jpeg;base64,${upscaled}`} alt="" />
+            <img src={`data:image/jpeg;base64,${upscaledData}`} alt="" />
           </div>
         )}
 
-        {!upscaled && <Loader />}
+        {!isFileUpscaled && <Loader />}
       </div>
     </div>
   );

@@ -1,24 +1,28 @@
 import React from "react";
 import "./App.css";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+// import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import GlobalState from "./context/GlobalState";
 
 // import NavBar from "./components/navBar";
-import Body from "./components/body";
+import BodyF from "./components/bodyF";
 // import Footer from "./components/footer";
 
 function App() {
   return (
-    <div className="page-container">
-      {/* <div className="header-wrap">
+    <GlobalState>
+      <div className="page-container">
+        {/* <div className="header-wrap">
         <NavBar />
       </div> */}
-      <div className="content-wrap">
-        <Body />
-      </div>
-      {/* <div className="footer-wrap">
+        <div className="content-wrap">
+          <BodyF />
+        </div>
+        {/* <div className="footer-wrap">
         <Footer />
       </div> */}
-    </div>
+      </div>
+    </GlobalState>
   );
 }
 

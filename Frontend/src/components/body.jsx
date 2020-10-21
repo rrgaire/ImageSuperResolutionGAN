@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Context from "../context/context";
+
 import axios from "axios";
 import { apiUrl } from "../config.json";
 import ImageUploader from "./imageUploader";
@@ -134,7 +136,7 @@ class Body extends Component {
       temp["url"] = await URL.createObjectURL(uploadedFiles[i]);
       temp["file"] = uploadedFiles[i];
       temp["size"] = uploadedFiles[i].size;
-      temp["checked"] = false;
+      // temp["checked"] = false;
       files.push(temp);
     }
     this.setState({
