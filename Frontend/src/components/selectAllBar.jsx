@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from "react";
 
-const SelectAllBar = ({ onClearAll }) => {
+import FileContext from "../context/fileContext";
+
+const SelectAllBar = () => {
+  const context = useContext(FileContext);
   return (
     <div className="select-all-box">
       <div className="check-box-content">
@@ -17,16 +20,34 @@ const SelectAllBar = ({ onClearAll }) => {
           Select All
         </label> */}
       </div>
+
+      <div>
+        <label
+          style={{ color: "#1fb149", cursor: "pointer" }}
+          htmlFor="imageUpload">
+          Add More
+        </label>
+
+        <input
+          type="file"
+          multiple
+          accept="image/jpeg, image/png"
+          style={{ display: "none" }}
+          id="imageUpload"
+          onChange={context.uploadFiles}
+        />
+      </div>
+
       <div>
         <button
           type="button"
           className="clear-images-button"
-          onClick={onClearAll}>
+          onClick={context.removeFiles}>
           Clear All Images
         </button>
       </div>
     </div>
   );
 };
- 
+
 export default SelectAllBar;

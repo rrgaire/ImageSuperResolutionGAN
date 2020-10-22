@@ -1,6 +1,7 @@
-import React from "react";
-
-const ImageUploader = ({ onImageUpload }) => {
+import React, { useContext } from "react";
+import FileContext from "../context/fileContext";
+const ImageUploader = () => {
+  const context = useContext(FileContext);
   return (
     <div className="card-sr">
       <div className="image-uploader">
@@ -21,7 +22,7 @@ const ImageUploader = ({ onImageUpload }) => {
           accept="image/jpeg, image/png"
           style={{ display: "none" }}
           id="imageUpload"
-          onChange={onImageUpload}
+          onChange={context.uploadFiles}
         />
       </div>
     </div>
