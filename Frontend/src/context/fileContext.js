@@ -9,4 +9,5 @@ export default React.createContext({
   getSelectedFile: () => {},
   getAllFiles: () => {},
   getLoadingState: () => {},
+  selectModelType: () => {},
 });

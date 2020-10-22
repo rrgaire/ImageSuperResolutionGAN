@@ -5,6 +5,7 @@ export const SELECT_FILE = "SEECT_FILE";
 export const API_CALL_REQUEST = "API_CALL_REQUEST";
 export const API_CALL_SUCCESS = "API_CALL_SUCCESS";
 export const API_CALL_FAIL = "API_CALL_FAIL";
+export const SELECT_MODEL_TYPE = "SELECT_MODEL_TYPE";
 
 const uploadFiles = (payload, state) => {
   const { files, message } = payload;
@@ -62,6 +63,17 @@ const apiCallFail = (payload, state) => {
   return { ...state, loading: false, message };
 };
 
+const selectModelType = (payload, state) => {
+  const { modelType } = payload;
+  const files = [...state.allFiles];
+  const selectedFile = state.selectedFile;
+  const fileIndex = files.findIndex((f) => f === selectedFile);
+  selectedFile.modelType = modelType;
+  files[fileIndex] = selectedFile;
+
+  return { ...state, allFiles: files, selectedFile };
+};
+
 export const fileReducer = (state, action) => {
   switch (action.type) {
     case UPLOAD_FILES:
@@ -78,6 +90,8 @@ export const fileReducer = (state, action) => {
       return apiCallSuccess(action.payload, state);
     case API_CALL_FAIL:
       return apiCallFail(action.payload, state);
+    case SELECT_MODEL_TYPE:
+      return selectModelType(action.payload, state);
     default:
       return state;
   }

@@ -12,6 +12,7 @@ import {
   API_CALL_FAIL,
   DELETE_FILE,
   SELECT_FILE,
+  SELECT_MODEL_TYPE,
 } from "./reducers";
 
 const GlobalState = (props) => {
@@ -43,6 +44,7 @@ const GlobalState = (props) => {
       temp["file"] = uploadedFiles[i];
       temp["size"] = uploadedFiles[i].size;
       temp["upscaledData"] = "";
+      temp["modelType"] = "Generic Model";
       // temp["checked"] = false;
       files.push(temp);
     }
@@ -106,6 +108,11 @@ const GlobalState = (props) => {
     }
   };
 
+  const selectModelType = (modelType) => {
+    console.log("mod", modelType);
+    dispatch({ type: SELECT_MODEL_TYPE, payload: { modelType } });
+  };
+
   const getAllFiles = () => {
     return fileState.allFiles;
   };
@@ -131,6 +138,7 @@ const GlobalState = (props) => {
         getSelectedFile: getSelectedFile,
         getLoadingState: getLoadingState,
         getMessage: getMessage,
+        selectModelType: selectModelType,
       }}>
       {props.children}
     </FileContext.Provider>
