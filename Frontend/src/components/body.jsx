@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import LeftContainer from "./leftContainer";
 import ImageUploader from "./imageUploader";
-
 import FileContext from "../context/fileContext";
 
 const BodyF = () => {
