@@ -1,8 +1,5 @@
 import io
-import numpy as np
-from scipy import misc
 from PIL import Image
-import json
 import base64
 
 from flask import request
