@@ -47,6 +47,7 @@ const apiCallRequest = (state) => {
 const apiCallSuccess = (payload, state) => {
   const { upScaledFile } = payload;
   const files = [...state.allFiles];
+  console.log("fads", upScaledFile);
   //   const oldFile = files.filter((f) => f.name === file.name);
   const indexOfFile = files.findIndex((f) => f.name === upScaledFile.name);
   files[indexOfFile] = upScaledFile;

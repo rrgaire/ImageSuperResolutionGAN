@@ -3,6 +3,7 @@ import LeftContainer from "./leftContainer";
 import ImageUploader from "./imageUploader";
 import FileContext from "../context/fileContext";
 import ModelSelect from "./modelSelect";
+import { RightContainer } from "./RightContainer/container/container";
 
 const BodyF = () => {
   const context = useContext(FileContext);
@@ -18,7 +19,7 @@ const BodyF = () => {
       </div>
 
       <div className="right">
-        {context.getSelectedFile() && <ModelSelect />}
+        {context.getSelectedFile() && <RightContainer />}
       </div>
     </div>
   );

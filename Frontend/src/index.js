@@ -5,10 +5,14 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.css";
+import GlobalStateProvider from "./globalState/globalStateProvider";
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <GlobalStateProvider>
+      <App />
+    </GlobalStateProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

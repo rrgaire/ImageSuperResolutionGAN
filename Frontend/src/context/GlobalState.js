@@ -81,10 +81,11 @@ const GlobalState = (props) => {
             accept: "application/json",
           },
         });
+        console.log(result);
         result = result["data"]["prediction_result"];
         file["upscaledData"] = result;
-        console.log("done");
-        dispatch({ type: API_CALL_SUCCESS, payload: { upscaledFile: file } });
+        // console.log("done", result);
+        dispatch({ type: API_CALL_SUCCESS, payload: { upScaledFile: file } });
       } catch (error) {
         dispatch({
           type: API_CALL_FAIL,
